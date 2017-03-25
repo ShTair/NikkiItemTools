@@ -39,6 +39,15 @@ namespace NikkiItemLoader
             items.Load("https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB", 0, p);
             Console.WriteLine(" Done");
 
+            Console.Write("ドレス...");
+            p.PostProcess = item =>
+            {
+                item.Name = item.Name.Replace("(ドレス)", "");
+                switch (item.Id) { case 10398: item.Name = "絶世の美女(墨)"; break; }
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9", 10000, p);
+            Console.WriteLine(" Done");
+
             Console.Write("Saving...");
             File.Copy("CsvHeader.txt", path, true);
             using (var writer = new StreamWriter(path, true, new UTF8Encoding(true)))
