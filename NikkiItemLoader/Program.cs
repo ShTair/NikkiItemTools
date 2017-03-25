@@ -34,6 +34,45 @@ namespace NikkiItemLoader
                 ItemConverter = NormalConverter,
             };
 
+            Console.WriteLine("アクセサリー");
+            var ei = new HashSet<Item>();
+            p.IdConverter = strs => int.Parse(strs[2]);
+            p.ItemConverter = PartConverter;
+
+            //Console.Write("ヘアアクセサリー...");
+            //p.PostProcess = item =>
+            //{
+            //    item.Name = item.Name.Replace("(頭)", "");
+            //    item.Kind = item.Kind.Replace("頭", "ヘアアクセサリー");
+            //};
+            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", 70000, p, ei);
+            //Console.WriteLine(" Done");
+
+            //Console.Write("耳飾り...");
+            //p.PostProcess = item =>
+            //{
+            //    item.Name = item.Name.Replace("(アクセサリー)", "");
+            //    item.Kind = item.Kind.Replace("耳", "耳飾り");
+            //};
+            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3", 70000, p, ei);
+            //Console.WriteLine(" Done");
+
+            Console.Write("首飾り...");
+            p.PostProcess = item =>
+            {
+                //item.Name = item.Name.Replace("(アクセサリー)", "");
+                item.Kind = item.Kind.Replace("首", "首飾り").Replace("+α", "・ストール");
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96", 70000, p, ei);
+            Console.WriteLine(" Done");
+
+            //Load("11_腕飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%95");
+            //Load("12_手持品", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E6%89%8B");
+            //Load("13_腰飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0");
+            //Load("14_特殊", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A");
+
+            //items.RemoveNotExistsItems(ei, 70000, p.Count);
+
             Console.Write("Saving...");
             File.Copy("CsvHeader.txt", path, true);
             using (var writer = new StreamWriter(path, true, new UTF8Encoding(true)))
