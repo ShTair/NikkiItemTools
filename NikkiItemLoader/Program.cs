@@ -34,6 +34,21 @@ namespace NikkiItemLoader
                 ItemConverter = NormalConverter,
             };
 
+            Console.Write("靴下...");
+            p.IdConverter = strs => int.Parse(strs[2]);
+            p.ItemConverter = PartConverter;
+            p.PostProcess = item =>
+            {
+                item.Name = item.Name.Replace("(靴下)", "");
+                switch (item.Id)
+                {
+                    case 50067:
+                    case 50185: item.Name = "ノーマルストッキング"; break;
+                }
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B", 50000, p);
+            Console.WriteLine(" Done");
+
             Console.Write("Saving...");
             File.Copy("CsvHeader.txt", path, true);
             using (var writer = new StreamWriter(path, true, new UTF8Encoding(true)))
@@ -72,7 +87,7 @@ namespace NikkiItemLoader
 
         private static void PartConverter(IList<string> strs, Item item)
         {
-            item.Kind = strs[1];
+            item.Kind = strs[0] + strs[1];
             item.Name = strs[3].Replace("（", "(").Replace("）", ")");
             item.Rarity = strs[4].Substring(1);
             item.P11 = strs[5].ToUpper();
