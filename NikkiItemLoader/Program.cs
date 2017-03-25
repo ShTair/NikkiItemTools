@@ -48,6 +48,11 @@ namespace NikkiItemLoader
             items.Load("https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9", 10000, p);
             Console.WriteLine(" Done");
 
+            Console.Write("コート...");
+            p.PostProcess = item => { item.Name = item.Name.Replace("(コート)", ""); };
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88", 20000, p);
+            Console.WriteLine(" Done");
+
             Console.Write("Saving...");
             File.Copy("CsvHeader.txt", path, true);
             using (var writer = new StreamWriter(path, true, new UTF8Encoding(true)))
