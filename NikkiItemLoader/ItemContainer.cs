@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace NikkiItemLoader
@@ -36,91 +35,70 @@ namespace NikkiItemLoader
             {
                 csv.Configuration.RegisterClassMap<Item.Map>();
                 csv.Configuration.HasHeaderRecord = false;
-                csv.WriteRecords(_items.Values);
+                csv.WriteRecords(_items.Values.OrderBy(t => t.Id));
             }
         }
 
-        public async Task Load(ItemLoadParameter p)
+        public void Load(string uri, int offset, ItemLoadParameter p)
         {
             using (var wc = new WebClient())
             {
                 wc.Encoding = Encoding.UTF8;
-                using (var sgml = new SgmlReader { Href = p.Uri })
+                using (var sgml = new SgmlReader { Href = uri })
                 {
                     var doc = new XmlDocument();
                     doc.Load(sgml);
 
-                    foreach (XmlElement elem in doc.GetElementsByTagName("table").Cast<XmlElement>())
+                    var existsItems = new HashSet<Item>();
+
+                    foreach (var strs in LoadItemColumn(doc))
                     {
-                        var tid = elem.GetAttribute("id");
-                        if (!tid.StartsWith("ui_wikidb_table_")) continue;
+                        var id = p.IdConverter(strs) + offset;
+                        if (p.IgnoreIds?.Contains(id) == true) continue;
 
+                        var item = _items[id];
 
-                        foreach (var item in from trs in elem.GetElementsByTagName("tr").Cast<XmlElement>()
-                                             let cs = trs.GetElementsByTagName("td").Cast<XmlElement>().ToList()
-                                             where cs.Count != 0
-                                             select cs.Select(t => t.InnerText).ToList())
-                        {
-                            var offset = 0;
-                            if (hasPart) offset = 1;
+                        p.ItemConverter(strs, item);
+                        p.PostProcess?.Invoke(item);
 
-                            var iname = item[2 + offset].Replace("（", "(").Replace("）", ")")
-                                .Replace("(ヘアスタイル)", "")
-                                .Replace("(ドレス)", "")
-                                .Replace("(コート)", "")
-                                .Replace("(トップス)", "")
-                                .Replace("(ボトムス)", "")
-                                .Replace("(靴下)", "");
-                            switch (iname)
-                            {
-                                case "パールレディ": iname = "パールレディー"; break;
-                            }
-
-                            var id = int.Parse(item[1 + offset]) + bid;
-
-                            switch (id)
-                            {
-                                case 50067: continue;
-                                case 50185: continue;
-                            }
-
-                            var si = _items[id];
-                            if (hasPart) si.Kind = item[0] + item[1];
-                            else si.Kind = item[0];
-                            si.Name = iname;
-                            si.Rarity = item[3 + offset].Substring(1);
-                            si.P11 = item[4 + offset].ToUpper();
-                            si.P12 = item[5 + offset].ToUpper();
-                            si.P21 = item[6 + offset].ToUpper();
-                            si.P22 = item[7 + offset].ToUpper();
-                            si.P31 = item[8 + offset].ToUpper();
-                            si.P32 = item[9 + offset].ToUpper();
-                            si.P41 = item[10 + offset].ToUpper();
-                            si.P42 = item[11 + offset].ToUpper();
-                            si.P51 = item[12 + offset].ToUpper();
-                            si.P52 = item[13 + offset].ToUpper();
-                            si.Tags = (item[14 + offset] + " " + item[15 + offset]).Trim();
-
-                            if (string.IsNullOrWhiteSpace(si.P11 + si.P12)
-                                || string.IsNullOrWhiteSpace(si.P21 + si.P22)
-                                || string.IsNullOrWhiteSpace(si.P31 + si.P32)
-                                || string.IsNullOrWhiteSpace(si.P41 + si.P42)
-                                || string.IsNullOrWhiteSpace(si.P51 + si.P52))
-                            {
-                                si.Name = "";
-                            }
-
-                            switch (id)
-                            {
-                                case 10398:
-                                    si.Name = "絶世の美女(墨)";
-                                    break;
-                                case 30339:
-                                    si.Tags = "スポーティ";
-                                    break;
-                            }
-                        }
+                        existsItems.Add(item);
                     }
+
+                    var nonIds = Enumerable.Range(offset + 1, p.Count).Except(existsItems.Select(t => t.Id));
+                    foreach (var id in nonIds)
+                    {
+                        var item = _items[id];
+                        item.Name = "";
+                        item.Rarity = "";
+                        item.P11 = "";
+                        item.P12 = "";
+                        item.P21 = "";
+                        item.P22 = "";
+                        item.P31 = "";
+                        item.P32 = "";
+                        item.P41 = "";
+                        item.P42 = "";
+                        item.P51 = "";
+                        item.P52 = "";
+                        item.Tags = "";
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<List<string>> LoadItemColumn(XmlDocument doc)
+        {
+            foreach (XmlElement elem in doc.GetElementsByTagName("table").Cast<XmlElement>())
+            {
+                var tid = elem.GetAttribute("id");
+                if (!tid.StartsWith("ui_wikidb_table_")) continue;
+
+                foreach (var strs in from trs in elem.GetElementsByTagName("tr").Cast<XmlElement>()
+                                     let cs = trs.GetElementsByTagName("td").Cast<XmlElement>().ToList()
+                                     where cs.Count != 0
+                                     select cs.Select(t => t.InnerText).ToList())
+                {
+                    yield return strs;
                 }
             }
         }
@@ -128,28 +106,14 @@ namespace NikkiItemLoader
 
     class ItemLoadParameter
     {
-        public string Uri { get; set; }
+        public int Count { get; set; } = 10000;
 
-        public int Offset { get; set; }
+        public HashSet<int> IgnoreIds { get; set; }
 
-        public int Count { get; set; }
+        public Func<IList<string>, int> IdConverter { get; set; }
 
-        public Action<IList<string>, Item> Converter { get; set; }
+        public Action<IList<string>, Item> ItemConverter { get; set; }
 
-        public ItemLoadParameter()
-        {
-            Count = 10000;
-        }
-    }
-
-    class NormalItemLoadParameter : ItemLoadParameter
-    {
-        public NormalItemLoadParameter()
-        {
-            Converter = (strs, item) =>
-            {
-
-            };
-        }
+        public Action<Item> PostProcess { get; set; }
     }
 }
