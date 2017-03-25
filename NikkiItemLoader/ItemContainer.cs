@@ -41,6 +41,13 @@ namespace NikkiItemLoader
 
         public void Load(string uri, int offset, ItemLoadParameter p)
         {
+            var existsItems = new HashSet<Item>();
+            Load(uri, offset, p, existsItems);
+            RemoveNotExistsItems(existsItems, offset, p.Count);
+        }
+
+        public void Load(string uri, int offset, ItemLoadParameter p, HashSet<Item> existsItems)
+        {
             using (var wc = new WebClient())
             {
                 wc.Encoding = Encoding.UTF8;
@@ -48,8 +55,6 @@ namespace NikkiItemLoader
                 {
                     var doc = new XmlDocument();
                     doc.Load(sgml);
-
-                    var existsItems = new HashSet<Item>();
 
                     foreach (var strs in LoadItemColumn(doc))
                     {
@@ -63,26 +68,29 @@ namespace NikkiItemLoader
 
                         existsItems.Add(item);
                     }
-
-                    var nonIds = Enumerable.Range(offset + 1, p.Count).Except(existsItems.Select(t => t.Id));
-                    foreach (var id in nonIds)
-                    {
-                        var item = _items[id];
-                        item.Name = "";
-                        item.Rarity = "";
-                        item.P11 = "";
-                        item.P12 = "";
-                        item.P21 = "";
-                        item.P22 = "";
-                        item.P31 = "";
-                        item.P32 = "";
-                        item.P41 = "";
-                        item.P42 = "";
-                        item.P51 = "";
-                        item.P52 = "";
-                        item.Tags = "";
-                    }
                 }
+            }
+        }
+
+        public void RemoveNotExistsItems(HashSet<Item> existsItems, int offset, int count)
+        {
+            var nonIds = Enumerable.Range(offset + 1, count).Except(existsItems.Select(t => t.Id));
+            foreach (var id in nonIds)
+            {
+                var item = _items[id];
+                item.Name = "";
+                item.Rarity = "";
+                item.P11 = "";
+                item.P12 = "";
+                item.P21 = "";
+                item.P22 = "";
+                item.P31 = "";
+                item.P32 = "";
+                item.P41 = "";
+                item.P42 = "";
+                item.P51 = "";
+                item.P52 = "";
+                item.Tags = "";
             }
         }
 
