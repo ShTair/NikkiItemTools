@@ -34,6 +34,12 @@ namespace NikkiItemLoader
                 ItemConverter = NormalConverter,
             };
 
+            Console.Write("メイク...");
+            p.PostProcess = null;
+            p.Count = 9900;
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF", 80000, p);
+            Console.WriteLine(" Done");
+
             Console.Write("Saving...");
             File.Copy("CsvHeader.txt", path, true);
             using (var writer = new StreamWriter(path, true, new UTF8Encoding(true)))
