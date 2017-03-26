@@ -65,7 +65,8 @@ namespace NikkiItemLoader
                         existsItems.Add(item);
                     }
 
-                    var nonIds = Enumerable.Range(offset + 1, p.Count).Except(existsItems.Select(t => t.Id));
+                    var nonIds = Enumerable.Range(offset + 1, p.Count)
+                        .Except(existsItems.Select(t => t.Id)).Except(p.IgnoreIds);
                     foreach (var id in nonIds)
                     {
                         var item = _items[id];
