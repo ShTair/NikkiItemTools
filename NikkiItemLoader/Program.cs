@@ -40,6 +40,7 @@ namespace NikkiItemLoader
             p.PostProcess = item =>
             {
                 item.Name = item.Name.Replace("(靴下)", "");
+                item.Kind = item.Kind.Replace("+α", "・ガーター");
                 switch (item.Id)
                 {
                     case 50067:
