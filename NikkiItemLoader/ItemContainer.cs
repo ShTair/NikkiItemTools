@@ -25,6 +25,7 @@ namespace NikkiItemLoader
             using (var csv = new CsvReader(reader))
             {
                 csv.Configuration.RegisterClassMap<Item.Map>();
+                csv.Configuration.HasHeaderRecord = false;
                 _items = csv.GetRecords<Item>().ToDictionary(t => t.Id, t => t);
             }
         }
