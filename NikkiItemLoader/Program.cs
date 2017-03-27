@@ -43,7 +43,9 @@ namespace NikkiItemLoader
             //p.PostProcess = item =>
             //{
             //    item.Name = item.Name.Replace("(頭)", "");
-            //    item.Kind = item.Kind.Replace("頭", "ヘアアクセサリー");
+            //    item.Kind = item.Kind.Replace("頭", "ヘアアクセサリー")
+            //        .Replace("ヘアアクセサリー+1", "ヘアアクセ・追加")
+            //        .Replace("ヘアアクセサリー+2", "ヘアアクセ・ベール");
             //};
             //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", 70000, p, ei);
             //Console.WriteLine(" Done");
@@ -60,7 +62,6 @@ namespace NikkiItemLoader
             Console.Write("首飾り...");
             p.PostProcess = item =>
             {
-                //item.Name = item.Name.Replace("(アクセサリー)", "");
                 item.Kind = item.Kind.Replace("首", "首飾り").Replace("+α", "・ストール");
             };
             items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96", 70000, p, ei);
