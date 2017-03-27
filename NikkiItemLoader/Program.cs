@@ -93,6 +93,12 @@ namespace NikkiItemLoader
             items.Load("https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA", 60000, p);
             Console.WriteLine(" Done");
 
+            Console.Write("メイク...");
+            p.PostProcess = null;
+            p.Count = 9900;
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF", 80000, p);
+            Console.WriteLine(" Done");
+
             Console.Write("Saving...");
             using (var writer = new StreamWriter(path, false, new UTF8Encoding(true)))
             {
