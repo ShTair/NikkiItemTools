@@ -88,6 +88,8 @@ namespace NikkiItemLoader
             Console.WriteLine(" Done");
 
             Console.Write("シューズ...");
+            p.IdConverter = strs => int.Parse(strs[1]);
+            p.ItemConverter = NormalConverter;
             p.PostProcess = item => { item.Name = item.Name.Replace("(シューズ)", ""); };
             p.IgnoreIds = new HashSet<int> { 60155 };
             items.Load("https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA", 60000, p);
@@ -97,7 +99,7 @@ namespace NikkiItemLoader
             Console.WriteLine("アクセサリー");
             var ei = new HashSet<Item>();
             p.IdConverter = strs => int.Parse(strs[2]);
-            p.ItemConverter = PartConverter;
+            p.ItemConverter = AccessoryConverter;
 
             Console.Write("ヘアアクセサリー...");
             p.PostProcess = item =>
@@ -182,6 +184,8 @@ namespace NikkiItemLoader
             items.RemoveNotExistsItems(ei, 70000, p.Count);
 
             Console.Write("メイク...");
+            p.IdConverter = strs => int.Parse(strs[1]);
+            p.ItemConverter = NormalConverter;
             p.PostProcess = null;
             p.Count = 9900;
             items.Load("https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF", 80000, p);
@@ -227,6 +231,33 @@ namespace NikkiItemLoader
         private static void PartConverter(IList<string> strs, Item item)
         {
             item.Kind = strs[0] + strs[1];
+            item.Name = strs[3].Replace("（", "(").Replace("）", ")");
+            item.Rarity = strs[4].Substring(1);
+            item.P11 = strs[5].ToUpper();
+            item.P12 = strs[6].ToUpper();
+            item.P21 = strs[7].ToUpper();
+            item.P22 = strs[8].ToUpper();
+            item.P31 = strs[9].ToUpper();
+            item.P32 = strs[10].ToUpper();
+            item.P41 = strs[11].ToUpper();
+            item.P42 = strs[12].ToUpper();
+            item.P51 = strs[13].ToUpper();
+            item.P52 = strs[14].ToUpper();
+            item.Tags = (strs[15] + " " + strs[16]).Trim();
+
+            if (string.IsNullOrWhiteSpace(item.P11 + item.P12)
+                || string.IsNullOrWhiteSpace(item.P21 + item.P22)
+                || string.IsNullOrWhiteSpace(item.P31 + item.P32)
+                || string.IsNullOrWhiteSpace(item.P41 + item.P42)
+                || string.IsNullOrWhiteSpace(item.P51 + item.P52))
+            {
+                item.Name = "";
+            }
+        }
+
+        private static void AccessoryConverter(IList<string> strs, Item item)
+        {
+            item.Kind = strs[1];
             item.Name = strs[3].Replace("（", "(").Replace("）", ")");
             item.Rarity = strs[4].Substring(1);
             item.P11 = strs[5].ToUpper();
