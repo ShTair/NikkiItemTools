@@ -39,50 +39,50 @@ namespace NikkiItemLoader
             p.IdConverter = strs => int.Parse(strs[2]);
             p.ItemConverter = PartConverter;
 
-            //Console.Write("ヘアアクセサリー...");
-            //p.PostProcess = item =>
-            //{
-            //    item.Name = item.Name.Replace("(頭)", "");
-            //    item.Kind = item.Kind.Replace("頭", "ヘアアクセサリー")
-            //        .Replace("ヘアアクセサリー+1", "ヘアアクセ・追加")
-            //        .Replace("ヘアアクセサリー+2", "ヘアアクセ・ベール");
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", 70000, p, ei);
-            //Console.WriteLine(" Done");
+            Console.Write("ヘアアクセサリー...");
+            p.PostProcess = item =>
+            {
+                item.Name = item.Name.Replace("(頭)", "");
+                item.Kind = item.Kind.Replace("頭", "ヘアアクセサリー")
+                    .Replace("ヘアアクセサリー+1", "ヘアアクセ・追加")
+                    .Replace("ヘアアクセサリー+2", "ヘアアクセ・ベール");
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", 70000, p, ei);
+            Console.WriteLine(" Done");
 
-            //Console.Write("耳飾り...");
-            //p.PostProcess = item =>
-            //{
-            //    item.Name = item.Name.Replace("(アクセサリー)", "");
-            //    item.Kind = item.Kind.Replace("耳", "耳飾り");
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3", 70000, p, ei);
-            //Console.WriteLine(" Done");
+            Console.Write("耳飾り...");
+            p.PostProcess = item =>
+            {
+                item.Name = item.Name.Replace("(アクセサリー)", "");
+                item.Kind = item.Kind.Replace("耳", "耳飾り");
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3", 70000, p, ei);
+            Console.WriteLine(" Done");
 
-            //Console.Write("首飾り...");
-            //p.PostProcess = item =>
-            //{
-            //    item.Kind = item.Kind.Replace("首", "首飾り").Replace("+α", "・ストール");
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96", 70000, p, ei);
-            //Console.WriteLine(" Done");
+            Console.Write("首飾り...");
+            p.PostProcess = item =>
+            {
+                item.Kind = item.Kind.Replace("首", "首飾り").Replace("+α", "・ストール");
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96", 70000, p, ei);
+            Console.WriteLine(" Done");
 
-            //Console.Write("腕飾り...");
-            //p.PostProcess = item =>
-            //{
-            //    item.Kind = item.Kind.Replace("右腕", "腕飾り・右手")
-            //        .Replace("左腕", "腕飾り・左手")
-            //        .Replace("両腕", "腕飾り・手袋両手物");
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%95", 70000, p, ei);
-            //Console.WriteLine(" Done");
+            Console.Write("腕飾り...");
+            p.PostProcess = item =>
+            {
+                item.Kind = item.Kind.Replace("右腕", "腕飾り・右手")
+                    .Replace("左腕", "腕飾り・左手")
+                    .Replace("両腕", "腕飾り・手袋両手物");
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%95", 70000, p, ei);
+            Console.WriteLine(" Done");
 
             Console.Write("手持品...");
             p.PostProcess = item =>
             {
                 item.Kind = item.Kind.Replace("右手", "手持品・右手")
                     .Replace("左手", "手持品・左手");
-                if(item.Kind == "両手")
+                if (item.Kind == "両手")
                 {
                     item.Kind = "手持品・右手";
                     item.Name += "<両手>";
@@ -91,10 +91,35 @@ namespace NikkiItemLoader
             items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E6%89%8B", 70000, p, ei);
             Console.WriteLine(" Done");
 
-            //Load("13_腰飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0");
-            //Load("14_特殊", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A");
+            Console.Write("腰飾り...");
+            p.PostProcess = item =>
+            {
+                item.Kind = item.Kind.Replace("腰", "腰飾り");
+                item.Name = item.Name.Replace("(アクセサリー)", "");
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0", 70000, p, ei);
+            Console.WriteLine(" Done");
 
-            //items.RemoveNotExistsItems(ei, 70000, p.Count);
+            Console.Write("特殊...");
+            p.PostProcess = item =>
+            {
+                switch (item.Kind)
+                {
+                    case "前景": item.Kind = "特殊・落物吊物吐息"; break;
+                    case "地面": item.Kind = "特殊・敷物"; break;
+                    case "後景": item.Kind = "特殊・マスコット"; break;
+                    case "顔": item.Kind = "特殊・眼鏡"; break;
+                    case "肩": item.Kind = "特殊・肩掛け"; break;
+                    case "背中": item.Kind = "特殊・羽"; break;
+                    case "尻尾": item.Kind = "特殊・しっぽ"; break;
+                    case "刺青": item.Kind = "特殊・タトゥ"; break;
+                    case "中景": item.Kind = "特殊・運命の箱"; break;
+                }
+            };
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A", 70000, p, ei);
+            Console.WriteLine(" Done");
+
+            items.RemoveNotExistsItems(ei, 70000, p.Count);
 
             Console.Write("Saving...");
             using (var writer = new StreamWriter(path, false, new UTF8Encoding(true)))
