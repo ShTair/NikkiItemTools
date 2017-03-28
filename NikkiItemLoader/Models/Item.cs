@@ -35,6 +35,12 @@ namespace NikkiItemLoader.Models
 
         public string Color { get; set; }
 
+        public bool HasAllData => !string.IsNullOrWhiteSpace(P11 + P12)
+                && !string.IsNullOrWhiteSpace(P21 + P22)
+                && !string.IsNullOrWhiteSpace(P31 + P32)
+                && !string.IsNullOrWhiteSpace(P41 + P42)
+                && !string.IsNullOrWhiteSpace(P51 + P52);
+
         public sealed class Map : CsvClassMap<Item>
         {
             public Map()

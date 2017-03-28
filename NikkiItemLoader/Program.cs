@@ -181,7 +181,7 @@ namespace NikkiItemLoader
             items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A", 70000, p, ei);
             Console.WriteLine(" Done");
 
-            items.RemoveNotExistsItems(ei, 70000, p.Count);
+            items.RemoveNotExistsItems(ei, 70000, p.Count, p.IgnoreIds);
 
             Console.Write("メイク...");
             p.IdConverter = strs => int.Parse(strs[1]);
@@ -199,6 +199,10 @@ namespace NikkiItemLoader
                 items.SaveCsv(writer);
             }
             Console.WriteLine(" Done");
+
+            Console.WriteLine();
+            items.OutputLog();
+            Console.ReadLine();
         }
 
         private static void NormalConverter(IList<string> strs, Item item)
@@ -217,15 +221,6 @@ namespace NikkiItemLoader
             item.P51 = strs[12].ToUpper();
             item.P52 = strs[13].ToUpper();
             item.Tags = (strs[14] + " " + strs[15]).Trim();
-
-            if (string.IsNullOrWhiteSpace(item.P11 + item.P12)
-                || string.IsNullOrWhiteSpace(item.P21 + item.P22)
-                || string.IsNullOrWhiteSpace(item.P31 + item.P32)
-                || string.IsNullOrWhiteSpace(item.P41 + item.P42)
-                || string.IsNullOrWhiteSpace(item.P51 + item.P52))
-            {
-                item.Name = "";
-            }
         }
 
         private static void PartConverter(IList<string> strs, Item item)
@@ -244,15 +239,6 @@ namespace NikkiItemLoader
             item.P51 = strs[13].ToUpper();
             item.P52 = strs[14].ToUpper();
             item.Tags = (strs[15] + " " + strs[16]).Trim();
-
-            if (string.IsNullOrWhiteSpace(item.P11 + item.P12)
-                || string.IsNullOrWhiteSpace(item.P21 + item.P22)
-                || string.IsNullOrWhiteSpace(item.P31 + item.P32)
-                || string.IsNullOrWhiteSpace(item.P41 + item.P42)
-                || string.IsNullOrWhiteSpace(item.P51 + item.P52))
-            {
-                item.Name = "";
-            }
         }
 
         private static void AccessoryConverter(IList<string> strs, Item item)
@@ -271,15 +257,6 @@ namespace NikkiItemLoader
             item.P51 = strs[13].ToUpper();
             item.P52 = strs[14].ToUpper();
             item.Tags = (strs[15] + " " + strs[16]).Trim();
-
-            if (string.IsNullOrWhiteSpace(item.P11 + item.P12)
-                || string.IsNullOrWhiteSpace(item.P21 + item.P22)
-                || string.IsNullOrWhiteSpace(item.P31 + item.P32)
-                || string.IsNullOrWhiteSpace(item.P41 + item.P42)
-                || string.IsNullOrWhiteSpace(item.P51 + item.P52))
-            {
-                item.Name = "";
-            }
         }
     }
 }
