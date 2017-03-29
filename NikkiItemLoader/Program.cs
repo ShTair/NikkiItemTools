@@ -35,40 +35,23 @@ namespace NikkiItemLoader
             };
 
             Console.Write("ヘアスタイル...");
-            p.PostProcess = item => { item.Name = item.Name.Replace("(ヘアスタイル)", ""); };
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB", 0, p);
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB", 0, p, "ヘアスタイル");
             Console.WriteLine(" Done");
 
             Console.Write("ドレス...");
-            p.PostProcess = item =>
-            {
-                item.Name = item.Name.Replace("(ドレス)", "");
-                switch (item.Id) { case 10398: item.Name = "絶世の美女(墨)"; break; }
-            };
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9", 10000, p);
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9", 10000, p, "ドレス");
             Console.WriteLine(" Done");
 
             Console.Write("コート...");
-            p.PostProcess = item => { item.Name = item.Name.Replace("(コート)", ""); };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88", 20000, p);
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88", 20000, p, "コート");
             Console.WriteLine(" Done");
 
             Console.Write("トップス...");
-            p.PostProcess = item =>
-            {
-                item.Name = item.Name.Replace("(トップス)", "");
-                switch (item.Id)
-                {
-                    case 30262: item.Name = "パールレディー"; break;
-                    case 30339: item.Tags = "スポーティ"; break;
-                }
-            };
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9", 30000, p);
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9", 30000, p, "トップス");
             Console.WriteLine(" Done");
 
             Console.Write("ボトムス...");
-            p.PostProcess = item => { item.Name = item.Name.Replace("(ボトムス)", ""); };
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9", 40000, p);
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9", 40000, p, "ボトムス");
             Console.WriteLine(" Done");
 
             Console.Write("靴下...");
@@ -76,24 +59,15 @@ namespace NikkiItemLoader
             p.ItemConverter = PartConverter;
             p.PostProcess = item =>
             {
-                item.Name = item.Name.Replace("(靴下)", "");
                 item.Kind = item.Kind.Replace("+α", "・ガーター");
-                switch (item.Id)
-                {
-                    case 50067:
-                    case 50185: item.Name = "ノーマルストッキング"; break;
-                }
             };
-            items.Load("https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B", 50000, p);
+            items.Load("https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B", 50000, p, "靴下");
             Console.WriteLine(" Done");
 
             Console.Write("シューズ...");
             p.IdConverter = strs => int.Parse(strs[1]);
             p.ItemConverter = NormalConverter;
-            p.PostProcess = item => { item.Name = item.Name.Replace("(シューズ)", ""); };
-            p.IgnoreIds = new HashSet<int> { 60155 };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA", 60000, p);
-            p.IgnoreIds = null;
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA", 60000, p, "シューズ");
             Console.WriteLine(" Done");
 
             Console.WriteLine("アクセサリー");
@@ -101,10 +75,11 @@ namespace NikkiItemLoader
             p.IdConverter = strs => int.Parse(strs[2]);
             p.ItemConverter = AccessoryConverter;
 
+            items.Reset(70000, 10000, "");
+
             Console.Write("ヘアアクセサリー...");
             p.PostProcess = item =>
             {
-                item.Name = item.Name.Replace("(頭)", "");
                 item.Kind = item.Kind.Replace("頭", "ヘアアクセサリー")
                     .Replace("ヘアアクセサリー+1", "ヘアアクセ・追加")
                     .Replace("ヘアアクセサリー+2", "ヘアアクセ・ベール");
@@ -115,7 +90,6 @@ namespace NikkiItemLoader
             Console.Write("耳飾り...");
             p.PostProcess = item =>
             {
-                item.Name = item.Name.Replace("(アクセサリー)", "");
                 item.Kind = item.Kind.Replace("耳", "耳飾り");
             };
             items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3", 70000, p, ei);
@@ -157,7 +131,6 @@ namespace NikkiItemLoader
             p.PostProcess = item =>
             {
                 item.Kind = item.Kind.Replace("腰", "腰飾り");
-                item.Name = item.Name.Replace("(アクセサリー)", "");
             };
             items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0", 70000, p, ei);
             Console.WriteLine(" Done");
@@ -181,14 +154,12 @@ namespace NikkiItemLoader
             items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A", 70000, p, ei);
             Console.WriteLine(" Done");
 
-            items.RemoveNotExistsItems(ei, 70000, p.Count, p.IgnoreIds);
-
             Console.Write("メイク...");
             p.IdConverter = strs => int.Parse(strs[1]);
             p.ItemConverter = NormalConverter;
             p.PostProcess = null;
             p.Count = 9900;
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF", 80000, p);
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF", 80000, p, "メイク");
             Console.WriteLine(" Done");
 
             Console.Write("Saving...");

@@ -181,11 +181,35 @@ namespace NikkiItemLoader
             Console.WriteLine("</table>");
         }
 
-        public void Load(string uri, int offset, ItemLoadParameter p)
+        public void Load(string uri, int offset, ItemLoadParameter p, string defKind)
         {
+            Reset(offset, p.Count, defKind);
             var existsItems = new HashSet<Item>();
             Load(uri, offset, p, existsItems);
-            RemoveNotExistsItems(existsItems, offset, p.Count, p.IgnoreIds);
+        }
+
+        public void Reset(int offset, int count, string defKind)
+        {
+            var nonIds = Enumerable.Range(offset + 1, count);
+            foreach (var id in nonIds)
+            {
+                var item = _items[id];
+                item.Kind = defKind;
+                item.Name = "";
+                item.Rarity = "";
+                item.P11 = "";
+                item.P12 = "";
+                item.P21 = "";
+                item.P22 = "";
+                item.P31 = "";
+                item.P32 = "";
+                item.P41 = "";
+                item.P42 = "";
+                item.P51 = "";
+                item.P52 = "";
+                item.Tags = "";
+                item.Color = "";
+            }
         }
 
         public void Load(string uri, int offset, ItemLoadParameter p, HashSet<Item> existsItems)
@@ -201,7 +225,6 @@ namespace NikkiItemLoader
                     foreach (var strs in LoadItemColumn(doc))
                     {
                         var id = p.IdConverter(strs) + offset;
-                        if (p.IgnoreIds?.Contains(id) == true) continue;
 
                         var item = _items[id];
 
@@ -211,29 +234,6 @@ namespace NikkiItemLoader
                         existsItems.Add(item);
                     }
                 }
-            }
-        }
-
-        public void RemoveNotExistsItems(HashSet<Item> existsItems, int offset, int count, HashSet<int> ignores)
-        {
-            var nonIds = Enumerable.Range(offset + 1, count).Except(existsItems.Select(t => t.Id));
-            if (ignores != null) nonIds = nonIds.Except(ignores);
-            foreach (var id in nonIds)
-            {
-                var item = _items[id];
-                item.Name = "";
-                item.Rarity = "";
-                item.P11 = "";
-                item.P12 = "";
-                item.P21 = "";
-                item.P22 = "";
-                item.P31 = "";
-                item.P32 = "";
-                item.P41 = "";
-                item.P42 = "";
-                item.P51 = "";
-                item.P52 = "";
-                item.Tags = "";
             }
         }
 
@@ -258,8 +258,6 @@ namespace NikkiItemLoader
     class ItemLoadParameter
     {
         public int Count { get; set; } = 10000;
-
-        public HashSet<int> IgnoreIds { get; set; }
 
         public Func<IList<string>, int> IdConverter { get; set; }
 
