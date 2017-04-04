@@ -4,11 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows;
 
 namespace NikkiItemCounter
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
             Dictionary<int, Item> items;
@@ -25,14 +28,15 @@ namespace NikkiItemCounter
             }
 
             var it = items.Values.Where(t => t.Id <= 89900).ToList();
+            var sb = new StringBuilder();
 
-            Console.WriteLine("### 集計");
-            Console.WriteLine("<table>");
-            Console.WriteLine($"<tr><th>名前収録</th><td align=\"right\">{it.Count(t => !string.IsNullOrWhiteSpace(t.Name))}</td></tr>");
-            Console.WriteLine($"<tr><th>属性値収録</th><td align=\"right\">{it.Count(t => t.HasAllData)}</td></tr>");
-            Console.WriteLine($"<tr><th>色収録</th><td align=\"right\">{it.Count(t => !string.IsNullOrWhiteSpace(t.Color))}</td></tr>");
-            Console.WriteLine("</table>");
-            Console.WriteLine();
+            sb.AppendLine("### 集計");
+            sb.AppendLine("<table>");
+            sb.AppendLine($"<tr><th>名前収録</th><td align=\"right\">{it.Count(t => !string.IsNullOrWhiteSpace(t.Name))}</td></tr>");
+            sb.AppendLine($"<tr><th>属性値収録</th><td align=\"right\">{it.Count(t => t.HasAllData)}</td></tr>");
+            sb.AppendLine($"<tr><th>色収録</th><td align=\"right\">{it.Count(t => !string.IsNullOrWhiteSpace(t.Color))}</td></tr>");
+            sb.AppendLine("</table>");
+            sb.AppendLine();
 
             string PKind(string v)
             {
@@ -140,28 +144,28 @@ namespace NikkiItemCounter
                 throw new Exception();
             }
 
-            Console.WriteLine("### 属性値収録済みのものの分類");
-            Console.WriteLine("<table>");
-            Console.WriteLine("<tr><th>大分類</th><th>中分類</th><th>小分類</th><th>収録数</th></tr>");
+            sb.AppendLine("### 属性値収録済みのものの分類");
+            sb.AppendLine("<table>");
+            sb.AppendLine("<tr><th>大分類</th><th>中分類</th><th>小分類</th><th>収録数</th></tr>");
             foreach (var pg in it.Where(t => t.HasAllData).GroupBy(t => ZKind(PKind(t.Kind))).OrderBy(t => XNum(t.Key)))
             {
                 var g = pg.GroupBy(t => t.Kind);
-                Console.Write($"<tr><th rowspan=\"{g.Count()}\">{pg.Key}</th>");
+                sb.Append($"<tr><th rowspan=\"{g.Count()}\">{pg.Key}</th>");
 
                 foreach (var gi in pg.GroupBy(t => PKind(t.Kind)).OrderBy(t => XNum(t.Key)))
                 {
                     var gg = gi.GroupBy(t => t.Kind);
-                    Console.Write($"<th rowspan=\"{gg.Count()}\">{gi.Key}</th>");
+                    sb.Append($"<th rowspan=\"{gg.Count()}\">{gi.Key}</th>");
 
                     foreach (var gz in gg.OrderBy(t => XNum(t.Key)))
                     {
-                        Console.WriteLine($"<th>{gz.Key}</th><td align=\"right\">{gz.Count()}</td></tr>");
+                        sb.AppendLine($"<th>{gz.Key}</th><td align=\"right\">{gz.Count()}</td></tr>");
                     }
                 }
             }
-            Console.WriteLine("</table>");
+            sb.AppendLine("</table>");
 
-            Console.ReadLine();
+            Clipboard.SetText(sb.ToString());
         }
     }
 }
