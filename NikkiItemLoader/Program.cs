@@ -17,13 +17,10 @@ namespace NikkiItemLoader
         private static async Task Run(string path)
         {
             var items = new ItemContainer();
-            var header = new List<string>();
 
             Console.Write("Loading...");
             using (var reader = File.OpenText(path))
             {
-                for (int i = 0; i < 10; i++) header.Add(await reader.ReadLineAsync());
-
                 items.LoadCsv(reader);
             }
             Console.WriteLine(" Done");
@@ -165,8 +162,6 @@ namespace NikkiItemLoader
             Console.Write("Saving...");
             using (var writer = new StreamWriter(path, false, new UTF8Encoding(true)))
             {
-                foreach (var line in header) await writer.WriteLineAsync(line);
-
                 items.SaveCsv(writer);
             }
             Console.WriteLine(" Done");
