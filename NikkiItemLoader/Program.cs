@@ -32,23 +32,23 @@ namespace NikkiItemLoader
             };
 
             Console.Write("ヘアスタイル...");
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB", 0, p, "ヘアスタイル");
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB", 0, p, "ヘアスタイル", "－");
             Console.WriteLine(" Done");
 
             Console.Write("ドレス...");
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9", 10000, p, "ドレス");
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9", 10000, p, "ドレス", "－");
             Console.WriteLine(" Done");
 
             Console.Write("コート...");
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88", 20000, p, "コート");
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88", 20000, p, "コート", "－");
             Console.WriteLine(" Done");
 
             Console.Write("トップス...");
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9", 30000, p, "トップス");
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9", 30000, p, "トップス", "－");
             Console.WriteLine(" Done");
 
             Console.Write("ボトムス...");
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9", 40000, p, "ボトムス");
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9", 40000, p, "ボトムス", "－");
             Console.WriteLine(" Done");
 
             Console.Write("靴下...");
@@ -58,21 +58,19 @@ namespace NikkiItemLoader
             {
                 item.Kind = item.Kind.Replace("+α", "・ガーター");
             };
-            items.Load("https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B", 50000, p, "靴下");
+            items.Load("https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B", 50000, p, "靴下", "－");
             Console.WriteLine(" Done");
 
             Console.Write("シューズ...");
             p.IdConverter = strs => int.Parse(strs[1]);
             p.ItemConverter = NormalConverter;
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA", 60000, p, "シューズ");
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA", 60000, p, "シューズ", "－");
             Console.WriteLine(" Done");
 
             Console.WriteLine("アクセサリー");
             var ei = new HashSet<Item>();
             p.IdConverter = strs => int.Parse(strs[2]);
             p.ItemConverter = AccessoryConverter;
-
-            items.Reset(70000, 10000, "");
 
             Console.Write("ヘアアクセサリー...");
             p.PostProcess = item =>
@@ -84,7 +82,7 @@ namespace NikkiItemLoader
                     case "頭+2": item.Kind = "ヴェール"; break;
                 }
             };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", 70000, p, ei);
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", 70000, p, ei, "←左にアクセサリーの種類を書きます");
             Console.WriteLine(" Done");
 
             Console.Write("耳飾り...");
@@ -92,7 +90,7 @@ namespace NikkiItemLoader
             {
                 item.Kind = item.Kind.Replace("耳", "耳飾り");
             };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3", 70000, p, ei);
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3", 70000, p, ei, "←左にアクセサリーの種類を書きます");
             Console.WriteLine(" Done");
 
             Console.Write("首飾り...");
@@ -104,7 +102,7 @@ namespace NikkiItemLoader
                     case "首": item.Kind = "ネックレス"; break;
                 }
             };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96", 70000, p, ei);
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96", 70000, p, ei, "←左にアクセサリーの種類を書きます");
             Console.WriteLine(" Done");
 
             Console.Write("腕飾り...");
@@ -117,7 +115,7 @@ namespace NikkiItemLoader
                     case "両腕": item.Kind = "手袋"; break;
                 }
             };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%95", 70000, p, ei);
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%95", 70000, p, ei, "←左にアクセサリーの種類を書きます");
             Console.WriteLine(" Done");
 
             Console.Write("手持品...");
@@ -130,7 +128,7 @@ namespace NikkiItemLoader
                     case "両手": item.Kind = "両手持ち"; break;
                 }
             };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E6%89%8B", 70000, p, ei);
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E6%89%8B", 70000, p, ei, "←左にアクセサリーの種類を書きます");
             Console.WriteLine(" Done");
 
             Console.Write("腰飾り...");
@@ -138,7 +136,7 @@ namespace NikkiItemLoader
             {
                 item.Kind = item.Kind.Replace("腰", "腰飾り");
             };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0", 70000, p, ei);
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0", 70000, p, ei, "←左にアクセサリーの種類を書きます");
             Console.WriteLine(" Done");
 
             Console.Write("特殊...");
@@ -157,7 +155,7 @@ namespace NikkiItemLoader
                     case "地面": item.Kind = "床"; break;
                 }
             };
-            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A", 70000, p, ei);
+            items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A", 70000, p, ei, "←左にアクセサリーの種類を書きます");
             Console.WriteLine(" Done");
 
             Console.Write("メイク...");
@@ -165,7 +163,7 @@ namespace NikkiItemLoader
             p.ItemConverter = NormalConverter;
             p.PostProcess = null;
             p.Count = 9900;
-            items.Load("https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF", 80000, p, "メイク");
+            items.Load("https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF", 80000, p, "メイク", "－");
             Console.WriteLine(" Done");
 
             Console.Write("Saving...");

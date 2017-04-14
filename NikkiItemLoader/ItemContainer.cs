@@ -40,38 +40,13 @@ namespace NikkiItemLoader
             }
         }
 
-        public void Load(string uri, int offset, ItemLoadParameter p, string defKind)
+        public void Load(string uri, int offset, ItemLoadParameter p, string defKind, string memo)
         {
-            Reset(offset, p.Count, defKind);
             var existsItems = new HashSet<Item>();
-            Load(uri, offset, p, existsItems);
+            Load(uri, offset, p, existsItems, memo);
         }
 
-        public void Reset(int offset, int count, string defKind)
-        {
-            var nonIds = Enumerable.Range(offset + 1, count);
-            foreach (var id in nonIds)
-            {
-                var item = _items[id];
-                item.Kind = defKind;
-                item.Name = "";
-                item.Rarity = "";
-                item.P11 = "";
-                item.P12 = "";
-                item.P21 = "";
-                item.P22 = "";
-                item.P31 = "";
-                item.P32 = "";
-                item.P41 = "";
-                item.P42 = "";
-                item.P51 = "";
-                item.P52 = "";
-                item.Tags = "";
-                item.Color = "";
-            }
-        }
-
-        public void Load(string uri, int offset, ItemLoadParameter p, HashSet<Item> existsItems)
+        public void Load(string uri, int offset, ItemLoadParameter p, HashSet<Item> existsItems, string memo)
         {
             using (var wc = new WebClient())
             {
@@ -85,7 +60,16 @@ namespace NikkiItemLoader
                     {
                         var id = p.IdConverter(strs) + offset;
 
-                        var item = _items[id];
+                        Item item;
+                        if (!_items.TryGetValue(id, out item))
+                        {
+                            _items.Add(id, item = new Item
+                            {
+                                Id = id,
+                                ItemId = id - offset,
+                                Memo1 = memo,
+                            });
+                        }
 
                         p.ItemConverter(strs, item);
                         p.PostProcess?.Invoke(item);
