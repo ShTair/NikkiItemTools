@@ -50,27 +50,38 @@ namespace NikkiItemCounter
                     case "靴下": return "靴下";
                     case "靴下・ガーター": return "靴下";
                     case "シューズ": return "シューズ";
-                    case "ヘアアクセサリー": return "ヘアアクセサリー";
-                    case "ヘアアクセ・追加": return "ヘアアクセサリー";
-                    case "ヘアアクセ・ベール": return "ヘアアクセサリー";
+
+                    case "ヘッドアクセ": return "ヘアアクセサリー";
+                    case "ヴェール": return "ヘアアクセサリー";
+                    case "カチューシャ": return "ヘアアクセサリー";
+
+                    case "つけ耳": return "耳飾り";
                     case "耳飾り": return "耳飾り";
-                    case "首飾り": return "首飾り";
-                    case "首飾り・ストール": return "首飾り";
-                    case "腕飾り・右手": return "腕飾り";
-                    case "腕飾り・左手": return "腕飾り";
-                    case "腕飾り・手袋両手物": return "腕飾り";
-                    case "手持品・右手": return "手持品";
-                    case "手持品・左手": return "手持品";
+
+                    case "マフラー": return "首飾り";
+                    case "ネックレス": return "首飾り";
+
+                    case "右手飾り": return "腕飾り";
+                    case "左手飾り": return "腕飾り";
+                    case "手袋": return "腕飾り";
+
+                    case "右手持ち": return "手持品";
+                    case "左手持ち": return "手持品";
+                    case "両手持ち": return "手持品";
+
                     case "腰飾り": return "腰飾り";
-                    case "特殊・落物吊物吐息": return "特殊";
-                    case "特殊・敷物": return "特殊";
-                    case "特殊・マスコット": return "特殊";
-                    case "特殊・眼鏡": return "特殊";
-                    case "特殊・肩掛け": return "特殊";
-                    case "特殊・羽": return "特殊";
-                    case "特殊・しっぽ": return "特殊";
-                    case "特殊・タトゥ": return "特殊";
-                    case "特殊・運命の箱": return "特殊";
+
+                    case "フェイス": return "特殊";
+                    case "ボディ": return "特殊";
+                    case "タトゥー": return "特殊";
+                    case "羽根": return "特殊";
+                    case "しっぽ": return "特殊";
+                    case "前景": return "特殊";
+                    case "後景": return "特殊";
+                    case "吊り": return "特殊";
+                    case "床": return "特殊";
+                    case "肌": return "特殊";
+
                     case "メイク": return "メイク";
                 }
 
@@ -114,31 +125,44 @@ namespace NikkiItemCounter
                     case "靴下・ガーター": return 7;
                     case "シューズ": return 8;
                     case "アクセサリー": return 9;
+
                     case "ヘアアクセサリー": return 10;
-                    case "ヘアアクセ・追加": return 11;
-                    case "ヘアアクセ・ベール": return 12;
-                    case "耳飾り": return 13;
-                    case "首飾り": return 14;
-                    case "首飾り・ストール": return 15;
-                    case "腕飾り": return 16;
-                    case "腕飾り・右手": return 17;
-                    case "腕飾り・左手": return 18;
-                    case "腕飾り・手袋両手物": return 19;
-                    case "手持品": return 20;
-                    case "手持品・右手": return 21;
-                    case "手持品・左手": return 22;
-                    case "腰飾り": return 23;
-                    case "特殊": return 24;
-                    case "特殊・落物吊物吐息": return 25;
-                    case "特殊・敷物": return 26;
-                    case "特殊・マスコット": return 27;
-                    case "特殊・眼鏡": return 28;
-                    case "特殊・肩掛け": return 29;
-                    case "特殊・羽": return 30;
-                    case "特殊・しっぽ": return 31;
-                    case "特殊・タトゥ": return 32;
-                    case "特殊・運命の箱": return 33;
-                    case "メイク": return 34;
+                    case "ヘッドアクセ": return 11;
+                    case "ヴェール": return 12;
+                    case "カチューシャ": return 13;
+
+                    case "つけ耳": return 14;
+                    case "耳飾り": return 15;
+
+                    case "首飾り": return 16;
+                    case "マフラー": return 17;
+                    case "ネックレス": return 18;
+
+                    case "腕飾り": return 19;
+                    case "右手飾り": return 20;
+                    case "左手飾り": return 21;
+                    case "手袋": return 22;
+
+                    case "手持品": return 23;
+                    case "右手持ち": return 24;
+                    case "左手持ち": return 25;
+                    case "両手持ち": return 26;
+
+                    case "腰飾り": return 27;
+
+                    case "特殊": return 28;
+                    case "フェイス": return 29;
+                    case "ボディ": return 30;
+                    case "タトゥー": return 31;
+                    case "羽根": return 32;
+                    case "しっぽ": return 33;
+                    case "前景": return 34;
+                    case "後景": return 35;
+                    case "吊り": return 36;
+                    case "床": return 37;
+                    case "肌": return 38;
+
+                    case "メイク": return 39;
                 }
 
                 throw new Exception();
