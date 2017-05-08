@@ -174,7 +174,7 @@ namespace NikkiItemCounter
             foreach (var pg in it.Where(t => t.HasAllData).GroupBy(t => ZKind(PKind(t.Kind))).OrderBy(t => XNum(t.Key)))
             {
                 var g = pg.GroupBy(t => t.Kind);
-                sb.Append($"<tr><th rowspan=\"{g.Count()}\">{pg.Key}</th>");
+                sb.Append($"<tr><th rowspan=\"{g.Count()}\">{pg.Key}（{pg.Count()}/）</th>");
 
                 foreach (var gi in pg.GroupBy(t => PKind(t.Kind)).OrderBy(t => XNum(t.Key)))
                 {
