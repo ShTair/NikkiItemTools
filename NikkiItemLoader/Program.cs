@@ -80,6 +80,7 @@ namespace NikkiItemLoader
                     case "頭": item.Kind = "ヘッドアクセ"; break;
                     case "頭+1": item.Kind = "カチューシャ"; break;
                     case "頭+2": item.Kind = "ヴェール"; break;
+                    case "頭+3": item.Kind = "つけ耳"; break;
                 }
             };
             items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", 70000, p, ei, "←左にアクセサリーの種類を書きます");
