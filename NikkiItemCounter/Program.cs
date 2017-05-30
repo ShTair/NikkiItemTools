@@ -168,10 +168,10 @@ namespace NikkiItemCounter
                 throw new Exception();
             }
 
-            sb.AppendLine("### 属性値収録済みのものの分類");
+            sb.AppendLine("### 名前収録済みのものの分類");
             sb.AppendLine("<table>");
             sb.AppendLine("<tr><th>大分類</th><th>中分類</th><th>小分類</th><th>収録数</th></tr>");
-            foreach (var pg in it.Where(t => t.HasAllData).GroupBy(t => ZKind(PKind(t.Kind))).OrderBy(t => XNum(t.Key)))
+            foreach (var pg in it.Where(t => t.HasName).GroupBy(t => ZKind(PKind(t.Kind))).OrderBy(t => XNum(t.Key)))
             {
                 var g = pg.GroupBy(t => t.Kind);
                 sb.Append($"<tr><th rowspan=\"{g.Count()}\">{pg.Key}（{pg.Count()}/）</th>");

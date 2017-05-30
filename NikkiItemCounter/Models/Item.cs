@@ -35,6 +35,8 @@ namespace NikkiItemCounter.Models
 
         public string Color { get; set; }
 
+        public bool HasName => !string.IsNullOrWhiteSpace(Name);
+
         public bool HasAllData => !string.IsNullOrWhiteSpace(P11 + P12)
                 && !string.IsNullOrWhiteSpace(P21 + P22)
                 && !string.IsNullOrWhiteSpace(P31 + P32)
