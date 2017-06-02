@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C0D4CECB-873B-490A-8824-D22D90363D0F}</ProjectGuid>
+    <ProjectGuid>{0D7E1455-1A8D-4AF1-93E2-D009AA7A8C3C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>NikkiItemMerger</RootNamespace>
     <AssemblyName>NikkiItemMerger</AssemblyName>
