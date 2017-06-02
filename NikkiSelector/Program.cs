@@ -14,6 +14,7 @@ namespace NikkiSelector
             var pm = new Dictionary<string, int> { { "", 0 }, { "X", 0 }, { "D", 2 }, { "C", 3 }, { "B", 4 }, { "A", 5 }, { "S", 7 }, { "SS", 9 }, { "SSS", 11 }, { "SSSS", 13 } };
 
             var vs = args[1].Split(',').Select(t => int.Parse(t)).ToList();
+            // 華麗,ｼﾝﾌﾟﾙ,ｴﾚｶﾞﾝﾄ,ｱｸﾃｨﾌﾞ,大人,ｷｭｰﾄ,ｾｸｼｰ,ピュア,ｳｫｰﾑ,クール
 
             var tss = "";
             if (args.Length >= 3) tss = args[2];
