@@ -42,14 +42,14 @@ namespace NikkiSelector
                 IEnumerable<(int, Item)> orderdItems = g.Select(t => (pm[t.P11] * vs[0] + pm[t.P12] * vs[1] + pm[t.P21] * vs[2] + pm[t.P22] * vs[3] + pm[t.P31] * vs[4] + pm[t.P32] * vs[5] + pm[t.P41] * vs[6] + pm[t.P42] * vs[7] + pm[t.P51] * vs[8] + pm[t.P52] * vs[9], t)).OrderByDescending(t => t.Item1);
 
                 var pathAll = $"res\\i_{kindId}_1_{kind}.txt";
-                File.WriteAllLines(pathAll, orderdItems.Select(t => $"{t.Item1 * rate},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name}"));
+                File.WriteAllLines(pathAll, orderdItems.Select(t => $"{t.Item1 * rate}\t{t.Item2.Id:00000}\t{t.Item2.Rarity}\t{t.Item2.Name}"));
 
                 if (ts.Count != 0)
                 {
                     orderdItems = orderdItems.Where(t => t.Item2.Tags.Split(' ').Any(t2 => ts.Contains(t2)));
 
                     var pathTag = $"res\\i_{kindId}_0_{kind}.txt";
-                    File.WriteAllLines(pathTag, orderdItems.Select(t => $"{t.Item1 * rate},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name}"));
+                    File.WriteAllLines(pathTag, orderdItems.Select(t => $"{t.Item1 * rate}\t{t.Item2.Id:00000}\t{t.Item2.Rarity}\t{t.Item2.Name}"));
                 }
             }
         }
