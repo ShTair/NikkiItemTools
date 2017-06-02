@@ -10,6 +10,8 @@ namespace NikkiSelector
     {
         static void Main(string[] args)
         {
+            if (Directory.Exists("res")) Directory.Delete("res", true);
+
             var pm = new Dictionary<string, int> { { "", 0 }, { "X", 0 }, { "D", 2 }, { "C", 3 }, { "B", 4 }, { "A", 5 }, { "S", 7 }, { "SS", 9 }, { "SSS", 11 }, { "SSSS", 13 } };
 
             var vs = args[1].Split(',').Select(t => int.Parse(t)).ToList();
@@ -28,10 +30,9 @@ namespace NikkiSelector
                 items = csv.GetRecords<Item>().ToList();
             }
 
-            var gs = items.GroupBy(t => t.Kind);
-            if (Directory.Exists("res")) Directory.Delete("res", true);
             Directory.CreateDirectory("res");
 
+            var gs = items.GroupBy(t => t.Kind);
             foreach (var g in gs)
             {
                 var kind = g.Key;
