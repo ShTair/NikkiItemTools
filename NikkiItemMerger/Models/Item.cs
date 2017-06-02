@@ -1,6 +1,6 @@
 ﻿using CsvHelper.Configuration;
 
-namespace NikkiItemLoader.Models
+namespace NikkiItemMerger.Models
 {
     class Item
     {

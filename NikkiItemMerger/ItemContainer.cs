@@ -1,5 +1,5 @@
 ﻿using CsvHelper;
-using NikkiItemLoader.Models;
+using NikkiItemMerger.Models;
 using Sgml;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Net;
 using System.Text;
 using System.Xml;
 
-namespace NikkiItemLoader
+namespace NikkiItemMerger
 {
     class ItemContainer
     {
