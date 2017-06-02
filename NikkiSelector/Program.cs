@@ -96,14 +96,14 @@ namespace NikkiSelector
                 IEnumerable<(int, Item)> r = g.Select(t => (pm[t.P11] * vs[0] + pm[t.P12] * vs[1] + pm[t.P21] * vs[2] + pm[t.P22] * vs[3] + pm[t.P31] * vs[4] + pm[t.P32] * vs[5] + pm[t.P41] * vs[6] + pm[t.P42] * vs[7] + pm[t.P51] * vs[8] + pm[t.P52] * vs[9], t)).OrderByDescending(t => t.Item1);
 
                 var pi = $"res\\i_{od}_1_{name}.txt";
-                File.WriteAllLines(pi, r.Select(t => $"{t.Item1:0000},{t.Item2.Id:00000},{t.Item2.Name}"));
+                File.WriteAllLines(pi, r.Select(t => $"{t.Item1:0000},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name}"));
 
                 if (ts.Count != 0)
                 {
                     r = r.Where(t => t.Item2.Tags.Split(' ').Any(t2 => ts.Contains(t2)));
 
                     var pt = $"res\\i_{od}_0_{name}.txt";
-                    File.WriteAllLines(pt, r.Select(t => $"{t.Item1:0000},{t.Item2.Id:00000},{t.Item2.Name}"));
+                    File.WriteAllLines(pt, r.Select(t => $"{t.Item1:0000},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name}"));
                 }
             }
         }
