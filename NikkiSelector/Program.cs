@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using NikkiItem.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;

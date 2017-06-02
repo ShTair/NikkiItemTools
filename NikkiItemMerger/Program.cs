@@ -1,5 +1,4 @@
-﻿using NikkiItemMerger.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,8 +16,6 @@ namespace NikkiItemMerger
 
         private static async Task Run(string path)
         {
-            var items = new ItemContainer();
-
             var header = new List<string>();
 
             var s1 = new Dictionary<int, string>();
