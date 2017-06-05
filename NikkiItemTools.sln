@@ -4,12 +4,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikkiItemLoader", "NikkiItemLoader\NikkiItemLoader.csproj", "{C0D4CECB-873B-490A-8824-D22D90363D0F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF} = {4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikkiItemMerger", "NikkiItemMerger\NikkiItemMerger.csproj", "{0D7E1455-1A8D-4AF1-93E2-D009AA7A8C3C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF} = {4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikkiItemCounter", "NikkiItemCounter\NikkiItemCounter.csproj", "{2B15161F-0F27-47E6-86CE-F859B396CFE6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF} = {4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikkiSelector", "NikkiSelector\NikkiSelector.csproj", "{74C44099-4474-4331-8FF9-FDEC92CD8391}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF} = {4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikkiItem.Models", "NikkiItem.Models\NikkiItem.Models.csproj", "{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}"
 EndProject
