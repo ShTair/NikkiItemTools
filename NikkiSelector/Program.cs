@@ -32,14 +32,14 @@ namespace NikkiSelector
 
             Directory.CreateDirectory("res");
 
-            var gs = items.GroupBy(t => t.Kind);
+            var gs = items.GroupBy(t => t.Kind).Where(g => !string.IsNullOrEmpty(g.Key));
             foreach (var g in gs)
             {
                 var kind = g.Key;
                 var kindId = Item.GetKindId(kind);
                 var rate = Item.GetRate(kindId);
 
-                IEnumerable<(double, Item)> orderdItems = g.Select(t => (pm[t.P11] * vs[0] + pm[t.P12] * vs[1] + pm[t.P21] * vs[2] + pm[t.P22] * vs[3] + pm[t.P31] * vs[4] + pm[t.P32] * vs[5] + pm[t.P41] * vs[6] + pm[t.P42] * vs[7] + pm[t.P51] * vs[8] + pm[t.P52] * vs[9], t)).OrderByDescending(t => t.Item1);
+                IEnumerable<(double, Item)> orderdItems = g.Where(t => HasAttr(t)).Select(t => (pm[t.P11] * vs[0] + pm[t.P12] * vs[1] + pm[t.P21] * vs[2] + pm[t.P22] * vs[3] + pm[t.P31] * vs[4] + pm[t.P32] * vs[5] + pm[t.P41] * vs[6] + pm[t.P42] * vs[7] + pm[t.P51] * vs[8] + pm[t.P52] * vs[9], t)).OrderByDescending(t => t.Item1);
 
                 var pathAll = $"res\\i_{kindId}_1_{kind}.txt";
                 File.WriteAllLines(pathAll, orderdItems.Select(t => $"{t.Item1 * rate:0}\t{t.Item2.Id:00000}\t{t.Item2.Rarity}\t{t.Item2.Name},{t.Item2.Tags}\t{pm[t.Item2.P11] * vs[0] * rate}\t{pm[t.Item2.P12] * vs[1] * rate}\t{pm[t.Item2.P21] * vs[2] * rate}\t{pm[t.Item2.P22] * vs[3] * rate}\t{pm[t.Item2.P31] * vs[4] * rate}\t{pm[t.Item2.P32] * vs[5] * rate}\t{pm[t.Item2.P41] * vs[6] * rate}\t{pm[t.Item2.P42] * vs[7] * rate}\t{pm[t.Item2.P51] * vs[8] * rate}\t{pm[t.Item2.P52] * vs[9] * rate}"));
@@ -52,6 +52,15 @@ namespace NikkiSelector
                     File.WriteAllLines(pathTag, orderdItems.Select(t => $"{t.Item1 * rate:0}\t{t.Item2.Id:00000}\t{t.Item2.Rarity}\t{t.Item2.Name},{t.Item2.Tags}"));
                 }
             }
+        }
+
+        private static bool HasAttr(Item item)
+        {
+            return !string.IsNullOrEmpty(item.P11 + item.P12)
+                && !string.IsNullOrEmpty(item.P21 + item.P22)
+                && !string.IsNullOrEmpty(item.P31 + item.P32)
+                && !string.IsNullOrEmpty(item.P41 + item.P42)
+                && !string.IsNullOrEmpty(item.P51 + item.P52);
         }
     }
 }
