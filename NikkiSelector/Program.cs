@@ -3,6 +3,7 @@ using NikkiItem.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace NikkiSelector
 {
@@ -11,6 +12,7 @@ namespace NikkiSelector
         static void Main(string[] args)
         {
             if (Directory.Exists("res")) Directory.Delete("res", true);
+            if (Directory.Exists("csv")) Directory.Delete("csv", true);
 
             var pm = new Dictionary<string, double> { { "", 0 }, { "X", 0 }, { "D", 2 }, { "C", 3 }, { "B", 4 }, { "A", 5 }, { "S", 6.5 }, { "SS", 8 }, { "SSS", 11 }, { "SSSS", 13 } };
 
@@ -31,6 +33,7 @@ namespace NikkiSelector
             }
 
             Directory.CreateDirectory("res");
+            Directory.CreateDirectory("csv");
 
             var gs = items.GroupBy(t => t.Kind).Where(g => !string.IsNullOrEmpty(g.Key));
             foreach (var g in gs)
@@ -44,12 +47,18 @@ namespace NikkiSelector
                 var pathAll = $"res\\i_{kindId}_1_{kind}.txt";
                 File.WriteAllLines(pathAll, orderdItems.Select(t => $"{t.Item1 * rate:0}\t{t.Item2.Id:00000}\t{t.Item2.Rarity}\t{t.Item2.Name},{t.Item2.Tags}\t{pm[t.Item2.P11] * vs[0] * rate}\t{pm[t.Item2.P12] * vs[1] * rate}\t{pm[t.Item2.P21] * vs[2] * rate}\t{pm[t.Item2.P22] * vs[3] * rate}\t{pm[t.Item2.P31] * vs[4] * rate}\t{pm[t.Item2.P32] * vs[5] * rate}\t{pm[t.Item2.P41] * vs[6] * rate}\t{pm[t.Item2.P42] * vs[7] * rate}\t{pm[t.Item2.P51] * vs[8] * rate}\t{pm[t.Item2.P52] * vs[9] * rate}"));
 
+                pathAll = $"csv\\i_{kindId}_1_{kind}.csv";
+                File.WriteAllLines(pathAll, orderdItems.Select(t => $"{t.Item1 * rate:0},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name},{t.Item2.Tags},{pm[t.Item2.P11] * vs[0] * rate},{pm[t.Item2.P12] * vs[1] * rate},{pm[t.Item2.P21] * vs[2] * rate},{pm[t.Item2.P22] * vs[3] * rate},{pm[t.Item2.P31] * vs[4] * rate},{pm[t.Item2.P32] * vs[5] * rate},{pm[t.Item2.P41] * vs[6] * rate},{pm[t.Item2.P42] * vs[7] * rate},{pm[t.Item2.P51] * vs[8] * rate},{pm[t.Item2.P52] * vs[9] * rate}"), Encoding.Default);
+
                 if (ts.Count != 0)
                 {
                     orderdItems = orderdItems.Where(t => t.Item2.Tags.Split(' ').Any(t2 => ts.Contains(t2)));
 
                     var pathTag = $"res\\i_{kindId}_0_{kind}.txt";
                     File.WriteAllLines(pathTag, orderdItems.Select(t => $"{t.Item1 * rate:0}\t{t.Item2.Id:00000}\t{t.Item2.Rarity}\t{t.Item2.Name},{t.Item2.Tags}"));
+
+                    pathTag = $"csv\\i_{kindId}_0_{kind}.csv";
+                    File.WriteAllLines(pathTag, orderdItems.Select(t => $"{t.Item1 * rate:0},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name},{t.Item2.Tags}"), Encoding.Default);
                 }
             }
         }
