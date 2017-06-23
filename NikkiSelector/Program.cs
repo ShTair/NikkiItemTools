@@ -47,8 +47,8 @@ namespace NikkiSelector
                 var pathAll = $"res\\i_{kindId}_1_{kind}.txt";
                 File.WriteAllLines(pathAll, orderdItems.Select(t => $"{t.Item1 * rate:0}\t{t.Item2.Id:00000}\t{t.Item2.Rarity}\t{t.Item2.Name},{t.Item2.Tags}\t{pm[t.Item2.P11] * vs[0] * rate}\t{pm[t.Item2.P12] * vs[1] * rate}\t{pm[t.Item2.P21] * vs[2] * rate}\t{pm[t.Item2.P22] * vs[3] * rate}\t{pm[t.Item2.P31] * vs[4] * rate}\t{pm[t.Item2.P32] * vs[5] * rate}\t{pm[t.Item2.P41] * vs[6] * rate}\t{pm[t.Item2.P42] * vs[7] * rate}\t{pm[t.Item2.P51] * vs[8] * rate}\t{pm[t.Item2.P52] * vs[9] * rate}"));
 
-                pathAll = $"csv\\i_{kindId}_1_{kind}.csv";
-                File.WriteAllLines(pathAll, orderdItems.Select(t => $"{t.Item1 * rate:0},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name},{t.Item2.Tags},{pm[t.Item2.P11] * vs[0] * rate},{pm[t.Item2.P12] * vs[1] * rate},{pm[t.Item2.P21] * vs[2] * rate},{pm[t.Item2.P22] * vs[3] * rate},{pm[t.Item2.P31] * vs[4] * rate},{pm[t.Item2.P32] * vs[5] * rate},{pm[t.Item2.P41] * vs[6] * rate},{pm[t.Item2.P42] * vs[7] * rate},{pm[t.Item2.P51] * vs[8] * rate},{pm[t.Item2.P52] * vs[9] * rate}"), Encoding.Default);
+                pathAll = $"csv\\i_{kindId:00}_1_{kind}.csv";
+                File.WriteAllLines(pathAll, orderdItems.Select(t => $"{t.Item1 * rate:0},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name},{t.Item2.Tags}"), Encoding.UTF8);
 
                 if (ts.Count != 0)
                 {
@@ -57,8 +57,8 @@ namespace NikkiSelector
                     var pathTag = $"res\\i_{kindId}_0_{kind}.txt";
                     File.WriteAllLines(pathTag, orderdItems.Select(t => $"{t.Item1 * rate:0}\t{t.Item2.Id:00000}\t{t.Item2.Rarity}\t{t.Item2.Name},{t.Item2.Tags}"));
 
-                    pathTag = $"csv\\i_{kindId}_0_{kind}.csv";
-                    File.WriteAllLines(pathTag, orderdItems.Select(t => $"{t.Item1 * rate:0},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name},{t.Item2.Tags}"), Encoding.Default);
+                    pathTag = $"csv\\i_{kindId:00}_0_{kind}.csv";
+                    File.WriteAllLines(pathTag, orderdItems.Select(t => $"{t.Item1 * rate:0},{t.Item2.Id:00000},{t.Item2.Rarity},{t.Item2.Name},{t.Item2.Tags}"), Encoding.UTF8);
                 }
             }
         }
