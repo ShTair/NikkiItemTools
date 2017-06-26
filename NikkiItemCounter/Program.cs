@@ -85,7 +85,7 @@ namespace NikkiItemCounter
                     case "メイク": return "メイク";
                 }
 
-                throw new Exception();
+                return "不明";
             }
 
             string ZKind(string v)
@@ -109,7 +109,7 @@ namespace NikkiItemCounter
                     case "メイク": return "メイク";
                 }
 
-                throw new Exception();
+                return "不明";
             }
 
             int XNum(string v)
@@ -165,7 +165,7 @@ namespace NikkiItemCounter
                     case "メイク": return 39;
                 }
 
-                throw new Exception();
+                return 100;
             }
 
             sb.AppendLine("### 名前収録済みのものの分類");
