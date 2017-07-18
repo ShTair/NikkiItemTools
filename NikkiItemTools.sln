@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikkiItemLoader", "NikkiItemLoader\NikkiItemLoader.csproj", "{C0D4CECB-873B-490A-8824-D22D90363D0F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikkiSelector", "NikkiSelec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NikkiItem.Models", "NikkiItem.Models\NikkiItem.Models.csproj", "{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemListImager", "ItemListImager\ItemListImager.csproj", "{92FA1621-B3DE-4DAE-AB4A-480A965C3777}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4484B54F-B5B5-4048-B3FF-9A9B8AD974FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92FA1621-B3DE-4DAE-AB4A-480A965C3777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92FA1621-B3DE-4DAE-AB4A-480A965C3777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92FA1621-B3DE-4DAE-AB4A-480A965C3777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92FA1621-B3DE-4DAE-AB4A-480A965C3777}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
