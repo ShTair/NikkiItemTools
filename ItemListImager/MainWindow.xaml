@@ -8,17 +8,17 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-            <ItemsControl Name="IC" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Lime" BorderThickness="1" ItemsSource="{Binding Categories}">
+            <ItemsControl Name="IC" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Lime" Background="White" BorderThickness="1" ItemsSource="{Binding Categories}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="80" />
                                 <ColumnDefinition Width="400" />
                             </Grid.ColumnDefinitions>
                             <Border Grid.ColumnSpan="2" BorderBrush="Lime" BorderThickness="1" />
                             <TextBlock Text="{Binding Name}" Margin="1" />
-                            <TextBlock Text="{Binding ItemsStr}" Grid.Column="1" TextWrapping="Wrap" Margin="1" />
+                            <TextBlock Text="{Binding ItemsStr}" Grid.Column="1" TextWrapping="Wrap" Margin="1" FontSize="20" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

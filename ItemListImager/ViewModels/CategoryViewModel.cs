@@ -20,7 +20,7 @@ namespace ItemListImager.ViewModels
 
             var items = (from line in File.ReadLines(path)
                          let sp = line.Split('\t')
-                         select $"{sp[3].Split(',')[0]}({sp[0]})").Take(10).ToList();
+                         select $"{sp[3].Split(',')[0]}({sp[0]})").Take(5).ToList();
 
             if (items.Count == 0) return null;
 
