@@ -14,7 +14,7 @@ namespace NikkiSelector
             if (Directory.Exists("res")) Directory.Delete("res", true);
             if (Directory.Exists("csv")) Directory.Delete("csv", true);
 
-            var pm = new Dictionary<string, double> { { "", 0 }, { "X", 0 }, { "D", 2 }, { "C", 3 }, { "B", 4 }, { "A", 5 }, { "S", 6.5 }, { "SS", 8 }, { "SSS", 11 }, { "SSSS", 13 } };
+            var pm = new Dictionary<string, double> { { "", 0 }, { "X", 0 }, { "D", 2 }, { "C", 3 }, { "B", 4 }, { "A", 5 }, { "S", 7 }, { "SS", 9 }, { "SSS", 11 }, { "SSSS", 13 } };
 
             var vs = args[1].Split(',').Select(t => double.Parse(t)).ToList();
             // 華麗,ｼﾝﾌﾟﾙ,ｴﾚｶﾞﾝﾄ,ｱｸﾃｨﾌﾞ,大人,ｷｭｰﾄ,ｾｸｼｰ,ピュア,ｳｫｰﾑ,クール
