@@ -58,11 +58,8 @@
     <Compile Include="Loaders\CoatLoader.cs" />
     <Compile Include="Loaders\DressLoader.cs" />
     <Compile Include="Loaders\HairstyleLoader.cs" />
-    <Compile Include="Loaders\ILoader.cs" />
-    <Compile Include="Loaders\KindLoader.cs" />
-    <Compile Include="Loaders\KindSetLoader.cs" />
+    <Compile Include="Loaders\LoaderBase.cs" />
     <Compile Include="Loaders\MakeupLoader.cs" />
-    <Compile Include="Loaders\NormalLoader.cs" />
     <Compile Include="Loaders\ShoesLoader.cs" />
     <Compile Include="Loaders\SocksLoader.cs" />
     <Compile Include="Loaders\TopsLoader.cs" />

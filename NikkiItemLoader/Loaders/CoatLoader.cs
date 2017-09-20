@@ -2,11 +2,9 @@
 
 namespace NikkiItemLoader.Loaders
 {
-    [Export(typeof(ILoader))]
-    sealed class CoatLoader : NormalLoader
+    [Export(typeof(LoaderBase))]
+    sealed class CoatLoader : LoaderBase
     {
-        public override int Offset => 20000;
-
-        protected override string Url => "https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88";
+        public CoatLoader() : base("https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88", 20000) { }
     }
 }

@@ -1,28 +1,42 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
 using NikkiItem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace NikkiItemLoader.Loaders
 {
-    abstract class KindLoader : ILoader
+    abstract class LoaderBase
     {
-        public abstract int Offset { get; }
+        private string _url;
+        private string _memo;
+
+        private Func<int, string> _kindGetter;
+
+        public int Offset { get; }
 
         public virtual int Length => 10000;
 
-        protected abstract string Url { get; }
+        public LoaderBase(string url, int offset, string memo = "－") : this(url, offset, kindGetter: null, memo: memo) { }
 
-        protected abstract string[] Kinds { get; }
+        public LoaderBase(string url, int offset, string kind, string memo = "－") : this(url, offset, _ => kind, memo) { }
 
-        protected virtual string Memo => "－";
+        public LoaderBase(string url, int offset, string[] kinds, string memo = "－") : this(url, offset, i => kinds[i], memo) { }
+
+        public LoaderBase(string url, int offset, Func<int, string> kindGetter, string memo)
+        {
+            _url = url;
+            Offset = offset;
+            _memo = memo;
+            _kindGetter = kindGetter;
+        }
 
         public async Task<IEnumerable<Item>> LoadItems()
         {
             var config = Configuration.Default.WithDefaultLoader();
-            var doc = await BrowsingContext.New(config).OpenAsync(Url);
+            var doc = await BrowsingContext.New(config).OpenAsync(_url);
             return GetItems(doc);
         }
 
@@ -40,8 +54,8 @@ namespace NikkiItemLoader.Loaders
                     {
                         Id = id + Offset,
                         ItemId = id,
-                        Kind = Kinds[i],
-                        Memo1 = Memo,
+                        Kind = _kindGetter?.Invoke(i) ?? datas[0],
+                        Memo1 = _memo,
                         Name = datas[2].Replace("（", "(").Replace("）", ")"),
                         Rarity = datas[3].Substring(1),
                         P11 = datas[4].ToUpper(),

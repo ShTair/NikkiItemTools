@@ -31,7 +31,7 @@ namespace NikkiItemLoader
 
             var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
             var container = new CompositionContainer(catalog);
-            var loaders = container.GetExportedValues<ILoader>();
+            var loaders = container.GetExportedValues<LoaderBase>();
 
             var loadedItems = await Task.WhenAll(loaders.Select(async loader => new { Loader = loader, Items = await loader.LoadItems() }));
 
