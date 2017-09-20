@@ -96,6 +96,44 @@ namespace NikkiItemLoader
                 }
             }
         }
+
+        public void Update(IEnumerable<Item> items, int offset, int length)
+        {
+            var cis = _items.Values.Where(t => t.Id >= offset && t.Id < offset + length).ToDictionary(t => t.Id);
+            foreach (var item in items)
+            {
+                Item ci;
+                if (cis.TryGetValue(item.Id, out ci))
+                {
+                    ci.Kind = item.Kind;
+                    ci.Memo1 = item.Memo1;
+                    ci.Name = item.Name;
+                    ci.Rarity = item.Rarity;
+                    ci.P11 = item.P11;
+                    ci.P12 = item.P12;
+                    ci.P21 = item.P21;
+                    ci.P22 = item.P22;
+                    ci.P31 = item.P31;
+                    ci.P32 = item.P32;
+                    ci.P41 = item.P41;
+                    ci.P42 = item.P42;
+                    ci.P51 = item.P51;
+                    ci.P52 = item.P52;
+                    ci.Tags = item.Tags;
+
+                    cis.Remove(item.Id);
+                }
+                else
+                {
+                    _items.Add(item.Id, item);
+                }
+            }
+
+            foreach (var item in cis)
+            {
+                _items.Remove(item.Key);
+            }
+        }
     }
 
     class ItemLoadParameter

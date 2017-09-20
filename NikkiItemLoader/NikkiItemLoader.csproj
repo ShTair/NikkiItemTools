@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.9\lib\net45\AngleSharp.dll</HintPath>
+    </Reference>
     <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
@@ -39,6 +42,7 @@
       <HintPath>..\packages\SgmlReader.1.8.11\lib\4.0\SgmlReaderDll.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,6 +53,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItemContainer.cs" />
+    <Compile Include="Loaders\AccessoryLoader.cs" />
+    <Compile Include="Loaders\BottomsLoader.cs" />
+    <Compile Include="Loaders\CoatLoader.cs" />
+    <Compile Include="Loaders\DressLoader.cs" />
+    <Compile Include="Loaders\HairstyleLoader.cs" />
+    <Compile Include="Loaders\LoaderBase.cs" />
+    <Compile Include="Loaders\MakeupLoader.cs" />
+    <Compile Include="Loaders\ShoesLoader.cs" />
+    <Compile Include="Loaders\SocksLoader.cs" />
+    <Compile Include="Loaders\TopsLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
