@@ -61,6 +61,7 @@
     <Compile Include="Loaders\MakeupLoader.cs" />
     <Compile Include="Loaders\NormalLoader.cs" />
     <Compile Include="Loaders\ShoesLoader.cs" />
+    <Compile Include="Loaders\SocksLoader.cs" />
     <Compile Include="Loaders\TopsLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,29 +1,21 @@
-﻿using AngleSharp;
-using AngleSharp.Dom;
+﻿using AngleSharp.Dom;
 using NikkiItem.Models;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace NikkiItemLoader.Loaders
 {
-    abstract class NormalLoader : ILoader
+    [Export(typeof(ILoader))]
+    sealed class SocksLoader : NormalLoader
     {
-        public abstract int Offset { get; }
+        public override int Offset => 50000;
 
-        public virtual int Length => 10000;
+        protected override string Url => "https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B";
 
-        protected abstract string Url { get; }
-
-        public async Task<IEnumerable<Item>> LoadItems()
+        protected override IEnumerable<Item> GetItems(IDocument doc)
         {
-            var config = Configuration.Default.WithDefaultLoader();
-            var doc = await BrowsingContext.New(config).OpenAsync(Url);
-            return GetItems(doc);
-        }
-
-        protected virtual IEnumerable<Item> GetItems(IDocument doc)
-        {
+            var kinds = new string[] { "靴下", "靴下・ガーター" };
             var tables = doc.QuerySelectorAll("section#js_async_main_column_text table");
             for (int i = 0; i < tables.Length; i++)
             {
@@ -36,7 +28,7 @@ namespace NikkiItemLoader.Loaders
                     {
                         Id = id + Offset,
                         ItemId = id,
-                        Kind = datas[0],
+                        Kind = kinds[i],
                         Memo1 = "－",
                         Name = datas[2].Replace("（", "(").Replace("）", ")"),
                         Rarity = datas[3].Substring(1),
