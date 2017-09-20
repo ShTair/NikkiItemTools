@@ -33,122 +33,15 @@ namespace NikkiItemLoader
             var container = new CompositionContainer(catalog);
             var loaders = container.GetExportedValues<ILoader>();
 
-            foreach (var loader in loaders)
+            var loadedItems = await Task.WhenAll(loaders.Select(async loader => new { Loader = loader, Items = await loader.LoadItems() }));
+
+            foreach (var loadedItem in loadedItems.GroupBy(t => t.Loader.Offset))
             {
-                var li = await loader.LoadItems();
-                Console.WriteLine($"{loader.Offset} {li.Count()}");
+                var loader = loadedItem.First().Loader;
+                var li = loadedItem.SelectMany(t => t.Items).OrderBy(t => t.Id).ToList();
+                Console.WriteLine($"{loader.Offset} {li.Count}");
                 items.Update(li, loader.Offset, loader.Length);
             }
-
-            //Console.Write("靴下...");
-            //p.IdConverter = strs => int.Parse(strs[2]);
-            //p.ItemConverter = PartConverter;
-            //p.PostProcess = item =>
-            //{
-            //    item.Kind = item.Kind.Replace("+α", "・ガーター");
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B", 50000, p, "靴下", "－");
-            //Console.WriteLine(" Done");
-
-            //Console.WriteLine("アクセサリー");
-            //var ei = new HashSet<Item>();
-            //p.IdConverter = strs => int.Parse(strs[2]);
-            //p.ItemConverter = AccessoryConverter;
-
-            //Console.Write("ヘアアクセサリー...");
-            //p.PostProcess = item =>
-            //{
-            //    switch (item.Kind)
-            //    {
-            //        case "頭": item.Kind = "ヘッドアクセ"; break;
-            //        case "頭+1": item.Kind = "カチューシャ"; break;
-            //        case "頭+2": item.Kind = "ヴェール"; break;
-            //        case "頭+3": item.Kind = "つけ耳"; break;
-            //    }
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", 70000, p, ei, "←左にアクセサリーの種類を書きます");
-            //Console.WriteLine(" Done");
-
-            //Console.Write("耳飾り...");
-            //p.PostProcess = item =>
-            //{
-            //    item.Kind = item.Kind.Replace("耳", "耳飾り");
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3", 70000, p, ei, "←左にアクセサリーの種類を書きます");
-            //Console.WriteLine(" Done");
-
-            //Console.Write("首飾り...");
-            //p.PostProcess = item =>
-            //{
-            //    switch (item.Kind)
-            //    {
-            //        case "首+α": item.Kind = "マフラー"; break;
-            //        case "首": item.Kind = "ネックレス"; break;
-            //    }
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96", 70000, p, ei, "←左にアクセサリーの種類を書きます");
-            //Console.WriteLine(" Done");
-
-            //Console.Write("腕飾り...");
-            //p.PostProcess = item =>
-            //{
-            //    switch (item.Kind)
-            //    {
-            //        case "右腕": item.Kind = "右手飾り"; break;
-            //        case "左腕": item.Kind = "左手飾り"; break;
-            //        case "両腕": item.Kind = "手袋"; break;
-            //    }
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%95", 70000, p, ei, "←左にアクセサリーの種類を書きます");
-            //Console.WriteLine(" Done");
-
-            //Console.Write("手持品...");
-            //p.PostProcess = item =>
-            //{
-            //    switch (item.Kind)
-            //    {
-            //        case "右手": item.Kind = "右手持ち"; break;
-            //        case "左手": item.Kind = "左手持ち"; break;
-            //        case "両手": item.Kind = "両手持ち"; break;
-            //    }
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E6%89%8B", 70000, p, ei, "←左にアクセサリーの種類を書きます");
-            //Console.WriteLine(" Done");
-
-            //Console.Write("腰飾り...");
-            //p.PostProcess = item =>
-            //{
-            //    item.Kind = item.Kind.Replace("腰", "腰飾り");
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0", 70000, p, ei, "←左にアクセサリーの種類を書きます");
-            //Console.WriteLine(" Done");
-
-            //Console.Write("特殊...");
-            //p.PostProcess = item =>
-            //{
-            //    switch (item.Kind)
-            //    {
-            //        case "顔": item.Kind = "フェイス"; break;
-            //        case "肩": item.Kind = "ボディ"; break;
-            //        case "刺青": item.Kind = "タトゥー"; break;
-            //        case "背中": item.Kind = "羽根"; break;
-            //        case "尻尾": item.Kind = "しっぽ"; break;
-            //        case "前景": item.Kind = "前景"; break;
-            //        case "後景": item.Kind = "後景"; break;
-            //        case "中景": item.Kind = "吊り"; break;
-            //        case "地面": item.Kind = "床"; break;
-            //    }
-            //};
-            //items.Load("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A", 70000, p, ei, "←左にアクセサリーの種類を書きます");
-            //Console.WriteLine(" Done");
-
-            //Console.Write("メイク...");
-            //p.IdConverter = strs => int.Parse(strs[1]);
-            //p.ItemConverter = NormalConverter;
-            //p.PostProcess = null;
-            //p.Count = 9900;
-            //items.Load("https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF", 80000, p, "メイク", "－");
-            //Console.WriteLine(" Done");
 
             Console.Write("Saving...");
             using (var writer = new StreamWriter(path, false, new UTF8Encoding(true)))

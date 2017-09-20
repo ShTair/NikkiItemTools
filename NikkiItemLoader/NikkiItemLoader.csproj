@@ -53,11 +53,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItemContainer.cs" />
+    <Compile Include="Loaders\AccessoryLoader.cs" />
     <Compile Include="Loaders\BottomsLoader.cs" />
     <Compile Include="Loaders\CoatLoader.cs" />
     <Compile Include="Loaders\DressLoader.cs" />
     <Compile Include="Loaders\HairstyleLoader.cs" />
     <Compile Include="Loaders\ILoader.cs" />
+    <Compile Include="Loaders\KindLoader.cs" />
+    <Compile Include="Loaders\KindSetLoader.cs" />
     <Compile Include="Loaders\MakeupLoader.cs" />
     <Compile Include="Loaders\NormalLoader.cs" />
     <Compile Include="Loaders\ShoesLoader.cs" />
