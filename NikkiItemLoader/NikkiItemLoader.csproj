@@ -42,6 +42,7 @@
       <HintPath>..\packages\SgmlReader.1.8.11\lib\4.0\SgmlReaderDll.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,6 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItemContainer.cs" />
+    <Compile Include="Loaders\BottomsLoader.cs" />
+    <Compile Include="Loaders\CoatLoader.cs" />
+    <Compile Include="Loaders\DressLoader.cs" />
+    <Compile Include="Loaders\HairstyleLoader.cs" />
+    <Compile Include="Loaders\ILoader.cs" />
+    <Compile Include="Loaders\MakeupLoader.cs" />
+    <Compile Include="Loaders\NormalLoader.cs" />
+    <Compile Include="Loaders\ShoesLoader.cs" />
+    <Compile Include="Loaders\TopsLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
