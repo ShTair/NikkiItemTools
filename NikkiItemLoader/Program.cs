@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +28,7 @@ namespace NikkiItemLoader
             }
             Console.WriteLine(" Done");
 
-            var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
+            var catalog = new ApplicationCatalog();
             var container = new CompositionContainer(catalog);
             var loaders = container.GetExportedValues<LoaderBase>();
 
