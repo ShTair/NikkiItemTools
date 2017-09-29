@@ -125,7 +125,8 @@ namespace NikkiItemLoader
                 }
                 else
                 {
-                    _items.Add(item.Id, item);
+                    try { _items.Add(item.Id, item); }
+                    catch { }
                 }
             }
 
