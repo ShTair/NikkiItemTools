@@ -11,7 +11,7 @@ namespace NikkiItemLoader.Loaders
     [Export(typeof(LoaderBase))]
     sealed class HairAccessoryLoader : AccessoryLoader
     {
-        public HairAccessoryLoader() : base("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", new string[] { "ヘッドアクセ", "カチューシャ", "ヴェール", "つけ耳" }) { }
+        public HairAccessoryLoader() : base("https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD", new string[] { "ヘッドアクセ", "ヴェール", "カチューシャ", "つけ耳" }) { }
     }
 
     [Export(typeof(LoaderBase))]
